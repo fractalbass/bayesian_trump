@@ -1,4 +1,10 @@
-import nltk.classify.util
+# --------------------------------------------------------------
+#  By Miles R. Porter
+#  Painted Harmony Group, Inc
+#  June 27, 2017
+#  Please See LICENSE.txt
+# --------------------------------------------------------------
+
 import pandas
 import SentimentAnalyzer
 
@@ -20,5 +26,7 @@ df["pos"] = pos_sentiment
 df["neg"] = neg_sentiment
 
 print(df[["created_at","text","pos","neg"]])
+
+#Save off the trump dataframe with the pos and neg fields for each tweet
 df[["created_at","text","pos","neg"]].to_csv("/Users/milesporter/data-science/bayesian-trump/sentiment_analyzed.csv")
 print("Complete.")
