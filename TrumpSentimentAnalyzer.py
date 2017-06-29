@@ -9,7 +9,7 @@ import pandas
 import SentimentAnalyzer
 
 #Load the trump tweets and classify each.
-df = pandas.read_csv("/Users/milesporter/data-science/bayesian-trump/realdonaltrump-fullarchive.csv")
+df = pandas.read_csv("/Users/milesporter/data-science/bayesian-trump/realdonaldtrump-fullarchive.csv")
 tweet_txt = df["text"]
 analyzer = SentimentAnalyzer.SentimentAnalyzer()
 
