@@ -5,8 +5,8 @@ import theano.tensor as tt
 from IPython.core.pylabtools import figsize
 from matplotlib import pyplot as plt
 
-count_data_df = pd.read_csv('./data/trump_daily_counts.csv')
-count_data = count_data_df["count"]
+count_data_df = pd.read_csv('./data/trump_sentiment_daily_counts.csv')
+count_data = count_data_df["neg"]
 n_count_data = len(count_data)
 
 with pm.Model() as model:
@@ -38,28 +38,30 @@ figsize(12.5, 10)
 # histogram of the samples:
 
 ax = plt.subplot(311)
+w1 = 1.0 / lambda_1_samples.shape[0] * np.ones_like(lambda_1_samples)
 ax.set_autoscaley_on(False)
 print("lambda_a_samples: {0}".format(lambda_1_samples))
-plt.hist(lambda_1_samples, histtype='stepfilled', bins=30, alpha=0.85,
-         label="posterior of $\lambda_1$", color="#A60628", normed=True)
+plt.hist(lambda_1_samples, histtype='stepfilled', bins=30, weights=w1,
+         label="posterior of $\lambda_1$", color="#A60628", normed=False)
 plt.legend(loc="upper left")
 plt.title(r"""Posterior distributions of the variables
     $\lambda_1,\;\lambda_2,\;\tau$""")
-plt.xlim([10, 20])
+plt.xlim([0, 20])
 plt.xlabel("$\lambda_1$ value")
 
 ax = plt.subplot(312)
+w2 = 1.0 / lambda_2_samples.shape[0] * np.ones_like(lambda_2_samples)
 ax.set_autoscaley_on(False)
-plt.hist(lambda_2_samples, histtype='stepfilled', bins=30, alpha=0.85,
-         label="posterior of $\lambda_2$", color="#7A68A6", normed=True)
+plt.hist(lambda_2_samples, histtype='stepfilled', bins=30, weights=w2,
+         label="posterior of $\lambda_2$", color="#7A68A6", normed=False)
 plt.legend(loc="upper left")
-plt.xlim([10, 20])
+plt.xlim([0, 20])
 plt.xlabel("$\lambda_2$ value")
 
 plt.subplot(313)
-w = 1.0 / tau_samples.shape[0] * np.ones_like(tau_samples)
+w3 = 1.0 / tau_samples.shape[0] * np.ones_like(tau_samples)
 print("Tau samples: {0}".format(tau_samples))
-plt.hist(tau_samples, bins=30, weights=w)
+plt.hist(tau_samples, bins=30, weights=w3)
 # plt.hist(tau_samples, bins=n_count_data, alpha=1,
 #         label=r"posterior of $\tau$",
 #         color="#467821", weights=w, rwidth=2.)

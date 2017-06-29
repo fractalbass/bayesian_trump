@@ -9,7 +9,7 @@ import pandas
 import SentimentAnalyzer
 
 #Load the trump tweets and classify each.
-df = pandas.read_csv("/Users/milesporter/data-science/bayesian-trump/realdonaldtrump-fullarchive.csv")
+df = pandas.read_csv("./data/realdonaldtrump-fullarchive.csv", parse_dates=["created_at"])
 tweet_txt = df["text"]
 analyzer = SentimentAnalyzer.SentimentAnalyzer()
 
@@ -28,5 +28,5 @@ df["neg"] = neg_sentiment
 print(df[["created_at","text","pos","neg"]])
 
 #Save off the trump dataframe with the pos and neg fields for each tweet
-df[["created_at","text","pos","neg"]].to_csv("/Users/milesporter/data-science/bayesian-trump/sentiment_analyzed.csv")
+df[["created_at","text","pos","neg"]].to_csv("/Users/milesporter/data-science/bayesian-trump/sentiment_analyzed3.csv")
 print("Complete.")

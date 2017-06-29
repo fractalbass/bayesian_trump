@@ -6,7 +6,8 @@
 #--------------------------------------------------------------
 
 import pandas as pd
-import datetime as dt
+import dateparser
+import datetime
 
 class TrumpTweetUtilities():
 
@@ -25,8 +26,7 @@ class TrumpTweetUtilities():
         return newdf
 
     def sum_columns_in_grouped_rows_by_date(self, dataframe, date_col):
-        #dataframe["created_at"] = dataframe["created_at"].values.astype(dt.date)
-        dataframe["created_at"] = dataframe["created_at"].apply(lambda x: x.date())
+        dataframe["created_at"] = dataframe["created_at"].apply(lambda x: self.tryConvert(x))
         pos_counts = dataframe.groupby(dataframe[date_col]).agg({'pos':['sum','count']})
         neg_counts = dataframe.groupby(dataframe[date_col]).agg({'neg':['sum','count']})
         d = {"count": pos_counts["pos"]["count"].values,
@@ -34,3 +34,15 @@ class TrumpTweetUtilities():
              "neg": neg_counts["neg"]["sum"].values}
         newdf = pd.DataFrame(d, index=pos_counts.index)
         return newdf
+
+    def tryConvert(self, x):
+        duh = None
+        if isinstance(x, datetime.datetime):
+            duh = x.date()
+        else:
+            try:
+                duh = dateparser.parse(x).date()
+            except:
+                print("Failed to parse {0} ".format(x))
+        return duh
+

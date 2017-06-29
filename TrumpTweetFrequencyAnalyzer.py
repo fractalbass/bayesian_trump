@@ -15,7 +15,7 @@ class TrumpFreqAnalizer:
     def run(self):
         dt = pd.read_csv("./data/realdonaldtrump-fullarchive.csv")
         util = TrumpTweetUtilities.TrumpTweetUtilities()
-        counts_df = util.test_count_rows_group_by_date(dt,"created_at")
+        counts_df = util.count_rows_group_by_date(dt,"created_at")
 
         #Sentiment stuff here.
 
