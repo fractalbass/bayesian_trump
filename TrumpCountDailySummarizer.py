@@ -10,20 +10,16 @@ import matplotlib
 from pylab import *
 import TrumpTweetUtilities
 
-class TrumpFreqAnalizer:
+class TrumpCountDailySummarizer:
 
     def run(self):
         dt = pd.read_csv("./data/realdonaldtrump-fullarchive.csv")
         util = TrumpTweetUtilities.TrumpTweetUtilities()
         counts_df = util.count_rows_group_by_date(dt,"created_at")
-
-        #Sentiment stuff here.
-
-
         print(counts_df)
         counts_df.plot(kind="line")
         counts_df.to_csv("./data/trump_daily_counts.csv")
         plt.show(block=True)
 
-tfa = TrumpFreqAnalizer()
+tfa = TrumpCountDailySummarizer()
 tfa.run()

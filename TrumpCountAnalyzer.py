@@ -5,8 +5,6 @@ import theano.tensor as tt
 from IPython.core.pylabtools import figsize
 from matplotlib import pyplot as plt
 
-count_data = pd.read_csv('./data/trump_daily_counts.csv')["count"]
-
 class DailySummaryAnalyzer:
 
     def run(self):
@@ -73,7 +71,7 @@ class DailySummaryAnalyzer:
         plt.hist(tau_samples, bins=30, weights=w3, label=r'posterior of $\tau$')
         plt.legend(loc="upper left")
         plt.ylim([0, 1.0])
-        plt.xlim([center-10, center+10])
+        plt.xlim([center-50, center+50])
         plt.ylabel("probability");
         plt.xlabel(r'$\tau$')
         plt.show()
